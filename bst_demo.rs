@@ -1,3 +1,4 @@
+use std::collections::VecDeque;
 struct TreeNode{
     value: i32,
     left:Option<Box<TreeNode>>,
@@ -59,7 +60,19 @@ impl BST{
             None=>false,
         }
     }
+    fn inorder(&self){
+        Self::inorder_traverse(&self.root);
+        println!();
+    }
+    fn inorder_traverse(node: & Option<Box<TreeNode>>){
+        if let Some(n)=node{
+            Self::inorder_traverse(&n.left);
+            println!("{}", n.value);
+            Self::inorder_traverse(&n.right);
+        }
+    }
 }
+
 fn main(){
     let mut bst=BST::new();
     bst.insert(5);
@@ -68,4 +81,7 @@ fn main(){
     
     println!("Searching for node 7:{}", bst.search(7));
     println!("Searching for node 6:{}", bst.search(6));
+    println!("Searching for node 4:{}", bst.search(4));
+    println!("In order traverse:");
+    bst.inorder();
 }
